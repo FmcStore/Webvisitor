@@ -1,36 +1,52 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realtime Visitor Analytics</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Realtime Traffic Dashboard</title>
+  <link rel="stylesheet" href="/public/style.css">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAempQGHy4Akq_n-TWCi9QUwv4pMccNDyU",
+      authDomain: "web-traffic-realtime.firebaseapp.com",
+      databaseURL: "https://web-traffic-realtime-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "web-traffic-realtime",
+      storageBucket: "web-traffic-realtime.firebasestorage.app",
+      messagingSenderId: "903367581475",
+      appId: "1:903367581475:web:73044ffed257608a2e3696",
+      measurementId: "G-FHR1ZRVVBM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const allTime = document.getElementById("allTime");
+    const today = document.getElementById("today");
+
+    const reqRef = ref(db, "requests");
+
+    onValue(reqRef, snapshot => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      const values = Object.values(data);
+      const now = new Date();
+      const last24h = values.filter(v => (now - new Date(v.timestamp)) < 86400000);
+
+      today.textContent = last24h.length.toLocaleString();
+      allTime.textContent = values.length.toLocaleString();
+    });
+  </script>
 </head>
 <body>
-  <main class="container">
-    <h1>📈 Realtime Visitor Analytics</h1>
-
-    <div class="cards">
-      <div class="counter-card">
-        <h2>Hari Ini</h2>
-        <p id="today" class="count">0</p>
-      </div>
-      <div class="counter-card">
-        <h2>Total Semua</h2>
-        <p id="all" class="count">0</p>
-      </div>
-    </div>
-
-    <div class="chart-container">
-      <canvas id="trafficChart"></canvas>
-    </div>
-
-    <footer>
-      <p>Made with ❤️ using Firebase + Chart.js + Vercel</p>
-    </footer>
-  </main>
-
-  <script type="module" src="script.js"></script>
+  <div class="card">
+    <h1>Total Pengunjung 24 Jam</h1>
+    <h2><span id="today">0</span></h2>
+    <h1>Total Semua Pengunjung</h1>
+    <h2><span id="allTime">0</span></h2>
+  </div>
 </body>
 </html>
