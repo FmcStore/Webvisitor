@@ -1,0 +1,33 @@
+body {
+  background: #0b0f19;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.card {
+  background: #161b2a;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  color: #00e0ff;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 40px;
+  color: #fff;
+}
+
+span {
+  color: #00ffa6;
+}
