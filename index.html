@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realtime Visitor Analytics</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <main class="container">
+    <h1>📈 Realtime Visitor Analytics</h1>
+
+    <div class="cards">
+      <div class="counter-card">
+        <h2>Hari Ini</h2>
+        <p id="today" class="count">0</p>
+      </div>
+      <div class="counter-card">
+        <h2>Total Semua</h2>
+        <p id="all" class="count">0</p>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="trafficChart"></canvas>
+    </div>
+
+    <footer>
+      <p>Made with ❤️ using Firebase + Chart.js + Vercel</p>
+    </footer>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
